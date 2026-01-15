@@ -3,9 +3,6 @@ import { AuthContext } from "../../context/AuthProvider";
 
 const AllTask = () => {
   const [userData, setUserData] = useContext(AuthContext);
-  function getRandom() {
-    return Math.floor(Math.random() * 10);
-  }
 
   return (
     <div
@@ -23,7 +20,7 @@ const AllTask = () => {
         <h5 className="text-lg font-medium w-1/5">Failed</h5>
       </div>
       <div>
-        {userData.map((elem, idx) => {
+        {userData?.map((elem, idx) => {
           return (
             <div
               key={idx}
@@ -31,14 +28,22 @@ const AllTask = () => {
             >
               <h2 className="text-lg font-medium w-1/5">{elem.name}</h2>
               <h3 className="text-lg font-medium w-1/5 text-cyan-100">
-                {getRandom()}
+                {elem.tasks.filter((task) => task.status === "New Task").length}
               </h3>
               <h5 className="text-lg font-medium w-1/5 text-cyan-500">
-                {getRandom()}
+                {
+                  elem.tasks.filter((task) => task.status === "Active Task")
+                    .length
+                }
               </h5>
-              <h5 className="text-lg font-medium w-1/5">{getRandom()}</h5>
+              <h5 className="text-lg font-medium w-1/5">
+                {
+                  elem.tasks.filter((task) => task.status === "Completed")
+                    .length
+                }
+              </h5>
               <h5 className="text-lg font-medium w-1/5 text-blue-400">
-                {getRandom()}
+                {elem.tasks.filter((task) => task.status === "Failed").length}
               </h5>
             </div>
           );

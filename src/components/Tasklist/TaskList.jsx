@@ -9,20 +9,15 @@ const TaskList = ({ employee }) => {
     return <p className="text-white">No tasks found.</p>;
   }
 
-  const updateStatus = (index, status) => {
+  const updateStatus = (taskId, newStatus) => {
     const updatedEmployees = userData.map((emp) => {
       if (emp.id === employee.id) {
-        const updatedTasks = emp.tasks.map((task, i) => {
-          if (i === index) {
-            if (task.completed || task.failed) return task;
-
-            return {
-              ...task,
-              active: false,
-              newTask: false,
-              completed: status === "completed",
-              failed: status === "failed",
-            };
+        const updatedTasks = emp.tasks.map((task) => {
+          if (task.id === taskId) {
+            // Only allow status change if task is not already completed or failed
+            if (task.status !== "Completed" && task.status !== "Failed") {
+              return { ...task, status: newStatus };
+            }
           }
           return task;
         });
@@ -36,15 +31,15 @@ const TaskList = ({ employee }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-      {currentEmployee.tasks.map((t, index) => {
-        const isDone = t.completed || t.failed;
+      {currentEmployee.tasks.map((t) => {
+        const isDone = t.status === "Completed" || t.status === "Failed";
         return (
           <div
-            key={index}
+            key={t.id}
             className={`p-5 rounded-xl border border-white/10 flex flex-col justify-between transition-all ${
-              t.completed
+              t.status === "Completed"
                 ? "bg-green-900/20 border-green-500/50"
-                : t.failed
+                : t.status === "Failed"
                 ? "bg-red-900/20 border-red-500/50"
                 : "bg-gray-800/70"
             }`}
@@ -55,16 +50,19 @@ const TaskList = ({ employee }) => {
                   {t.title}
                 </h3>
 
-                {t.completed && (
-                  <span className="text-green-400 text-xs font-bold uppercase">
-                    Completed
-                  </span>
-                )}
-                {t.failed && (
-                  <span className="text-red-400 text-xs font-bold uppercase">
-                    Failed
-                  </span>
-                )}
+                <span
+                  className={`text-xs font-bold uppercase ${
+                    t.status === "Completed"
+                      ? "text-green-400"
+                      : t.status === "Failed"
+                      ? "text-red-400"
+                      : t.status === "Active Task"
+                      ? "text-cyan-400"
+                      : "text-purple-400"
+                  }`}
+                >
+                  {t.status}
+                </span>
               </div>
               <p className="text-gray-400 text-sm mt-2 wrap-break-word">
                 {t.description}
@@ -72,29 +70,36 @@ const TaskList = ({ employee }) => {
             </div>
 
             <div className="flex flex-wrap gap-3 mt-4">
-              <button
-                disabled={isDone}
-                onClick={() => updateStatus(index, "completed")}
-                className={`px-3 py-2 rounded text-sm font-bold flex-1 min-w-fit transition-all ${
-                  isDone
-                    ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                    : "bg-green-500 hover:bg-green-600 text-white cursor-pointer"
-                }`}
-              >
-                {t.completed ? "Completed" : "Mark as Completed"}
-              </button>
+              {t.status === "New Task" && (
+                <button
+                  onClick={() => updateStatus(t.id, "Active Task")}
+                  className="px-3 py-2 rounded text-sm font-bold flex-1 min-w-fit transition-all bg-cyan-500 hover:bg-cyan-600 text-white cursor-pointer"
+                >
+                  Accept Task
+                </button>
+              )}
+              {t.status === "Active Task" && (
+                <>
+                  <button
+                    onClick={() => updateStatus(t.id, "Completed")}
+                    className={`px-3 py-2 rounded text-sm font-bold flex-1 min-w-fit transition-all bg-green-500 hover:bg-green-600 text-white cursor-pointer`}
+                  >
+                    Mark as Completed
+                  </button>
 
-              <button
-                disabled={isDone}
-                onClick={() => updateStatus(index, "failed")}
-                className={`px-3 py-2 rounded text-sm font-bold flex-1 min-w-fit transition-all ${
-                  isDone
-                    ? "bg-gray-700 text-gray-500 cursor-not-allowed"
-                    : "bg-red-500 hover:bg-red-600 text-white cursor-pointer"
-                }`}
-              >
-                {t.failed ? "Failed" : "Mark as Failed"}
-              </button>
+                  <button
+                    onClick={() => updateStatus(t.id, "Failed")}
+                    className={`px-3 py-2 rounded text-sm font-bold flex-1 min-w-fit transition-all bg-red-500 hover:bg-red-600 text-white cursor-pointer`}
+                  >
+                    Mark as Failed
+                  </button>
+                </>
+              )}
+              {isDone && (
+                <p className="text-sm text-gray-500 w-full text-center">
+                  Task is final.
+                </p>
+              )}
             </div>
           </div>
         );

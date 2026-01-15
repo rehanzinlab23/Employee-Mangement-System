@@ -13,14 +13,12 @@ const CreateTask = () => {
   const SubmitHandler = (e) => {
     e.preventDefault();
     const newTask = {
+      id: Date.now(),
       title: taskTitle,
       description: taskDesc,
       date: taskDate,
       category: category,
-      active: false,
-      newTask: true,
-      completed: false,
-      failed: false,
+      status: "New Task",
     };
     const updatedEmployees = userData.map((emp) => {
       if (emp.name === assignTo) {

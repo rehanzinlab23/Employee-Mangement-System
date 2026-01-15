@@ -1,22 +1,22 @@
 const TaskListNumber = ({ data }) => {
   const tasksData = [
     {
-      num: data.tasks[0].newTask,
+      num: data.tasks.filter((task) => task.status === "New Task").length,
       heading: "New Task",
       accent: "from-purple-600 to-indigo-500",
     },
     {
-      num: data.tasks[0].completed,
+      num: data.tasks.filter((task) => task.status === "Completed").length,
       heading: "Completed Task",
       accent: "bg-gray-800/60",
     },
     {
-      num: data.tasks[0].active,
+      num: data.tasks.filter((task) => task.status === "Active Task").length,
       heading: "Accepted Task",
       accent: "from-blue-400 to-cyan-500",
     },
     {
-      num: data.tasks[0].failed,
+      num: data.tasks.filter((task) => task.status === "Failed").length,
       heading: "Failed Task",
       accent: "from-red-400 to-red-600",
     },
@@ -26,7 +26,7 @@ const TaskListNumber = ({ data }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
       {tasksData.map((data) => (
         <div
-          key={data.num}
+          key={data.heading}
           className={`group p-5 rounded-xl shadow-md border border-gray-800/60 flex flex-col gap-3 justify-between bg-linear-to-br ${data.accent} hover:scale-[1.02] transition-transform`}
         >
           <div className="flex items-start justify-between">

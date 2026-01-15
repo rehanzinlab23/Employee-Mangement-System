@@ -19,6 +19,21 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (user === "employee" && userData && loggedInUserData) {
+      const updatedLoggedInUserData = userData.find(
+        (emp) => emp.id === loggedInUserData.id
+      );
+      if (updatedLoggedInUserData) {
+        setLoggedInUserData(updatedLoggedInUserData);
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({ role: "employee", data: updatedLoggedInUserData })
+        );
+      }
+    }
+  }, [userData]);
+
   const handleLogin = (email, password) => {
     if (email == "admin@me.com" && password == 123) {
       setUser("admin");

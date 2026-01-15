@@ -9,7 +9,7 @@ const Header = ({ data, changeUser }) => {
       <div>
         <h1 className="text-white text-2xl font-medium">Hello,</h1>
         <div className="text-3xl font-semibold text-white/95">
-          <span>{data?.name || "User"}👋</span>
+          <span>{data?.name || "Admin"}👋</span>
         </div>
       </div>
 
