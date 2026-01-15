@@ -5,49 +5,48 @@ const AllTask = () => {
   const [userData, setUserData] = useContext(AuthContext);
 
   return (
-    <div
-      className="p-6 mt-5 bg-linear-to-br from-[#0b0f1a]/90 via-[#11162a]/80 to-[#0a0d18]/90
-             rounded-2xl
-             border border-white/10
-             backdrop-blur-xl
-             shadow-[0_0_80px_rgba(128,0,255,0.15)]"
-    >
-      <div className="flex rounded mb-4 justify-between px-4 py-2 bg-linear-to-r from-purple-600 to-cyan-500 text-white">
-        <h2 className="text-lg font-medium w-1/5">Employee Name</h2>
-        <h3 className="text-lg font-medium w-1/5">New Task</h3>
-        <h5 className="text-lg font-medium w-1/5">Active Task</h5>
-        <h5 className="text-lg font-medium w-1/5">Completed</h5>
-        <h5 className="text-lg font-medium w-1/5">Failed</h5>
+    <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/2 backdrop-blur-md shadow-2xl">
+      <div className="flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/10 text-gray-400 uppercase tracking-wider text-xs font-bold">
+        <div className="w-1/5">Employee</div>
+        <div className="w-1/5 text-center">New</div>
+        <div className="w-1/5 text-center">Active</div>
+        <div className="w-1/5 text-center">Completed</div>
+        <div className="w-1/5 text-center">Failed</div>
       </div>
-      <div>
-        {userData?.map((elem, idx) => {
-          return (
-            <div
-              key={idx}
-              className="flex rounded mb-4 justify-between px-4 py-2 border-2 border-cyan-500"
-            >
-              <h2 className="text-lg font-medium w-1/5">{elem.name}</h2>
-              <h3 className="text-lg font-medium w-1/5 text-cyan-100">
-                {elem.tasks.filter((task) => task.status === "New Task").length}
-              </h3>
-              <h5 className="text-lg font-medium w-1/5 text-cyan-500">
-                {
-                  elem.tasks.filter((task) => task.status === "Active Task")
-                    .length
-                }
-              </h5>
-              <h5 className="text-lg font-medium w-1/5">
-                {
-                  elem.tasks.filter((task) => task.status === "Completed")
-                    .length
-                }
-              </h5>
-              <h5 className="text-lg font-medium w-1/5 text-blue-400">
-                {elem.tasks.filter((task) => task.status === "Failed").length}
-              </h5>
+      <div className="max-h-112.5 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+        {userData?.map((elem, idx) => (
+          <div
+            key={idx}
+            className="flex items-center justify-between px-6 py-5 border-b border-white/3 hover:bg-white/4 transition-colors duration-200 group"
+          >
+            <div className="w-1/5 flex items-center gap-3">
+              <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+              <h2 className="text-base font-semibold text-white/90 group-hover:text-white transition-colors">
+                {elem.name}
+              </h2>
             </div>
-          );
-        })}
+
+            {/* Status Counts - Using pill-style or colored typography */}
+            <div className="w-1/5 text-center font-bold text-lg text-blue-400">
+              {elem.tasks.filter((task) => task.status === "New Task").length}
+            </div>
+
+            <div className="w-1/5 text-center font-bold text-lg text-amber-400">
+              {
+                elem.tasks.filter((task) => task.status === "Active Task")
+                  .length
+              }
+            </div>
+
+            <div className="w-1/5 text-center font-bold text-lg text-emerald-400">
+              {elem.tasks.filter((task) => task.status === "Completed").length}
+            </div>
+
+            <div className="w-1/5 text-center font-bold text-lg text-red-500">
+              {elem.tasks.filter((task) => task.status === "Failed").length}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
