@@ -27,7 +27,9 @@ const TaskListNumber = ({ data }) => {
       {tasksData.map((data) => (
         <div
           key={data.heading}
-          className={`group p-5 rounded-xl shadow-md border border-gray-800/60 flex flex-col gap-3 justify-between bg-linear-to-br ${data.accent} hover:scale-[1.02] transition-transform`}
+          className={`group p-5 rounded-xl border border-gray-800/60 flex flex-col gap-3 justify-between bg-linear-to-br ${data.accent} backdrop-blur-md transition-all duration-300 ease-out
+  hover:-translate-y-2 hover:scale-[1.02]
+  hover:shadow-[0_20px_80px_rgba(128,0,255,0.35)]`}
         >
           <div className="flex items-start justify-between">
             <div>

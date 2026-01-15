@@ -21,7 +21,7 @@ const Header = ({ data, changeUser }) => {
         <button
           onClick={LoggedOutUser}
           type="submit"
-          className="w-full py-3 px-4 bg-linear-to-r from-purple-600 to-cyan-500 text-white font-semibold rounded-xl shadow-lg cursor-pointer"
+          className="w-full py-3 px-4 bg-linear-to-r from-purple-600 to-cyan-500 text-white font-semibold rounded-xl shadow-lg cursor-pointer whitespace-nowrap"
         >
           Log Out
         </button>

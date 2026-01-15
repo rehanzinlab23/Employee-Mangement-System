@@ -19,7 +19,7 @@ function Login({ handleLogin }) {
   return (
     <div className="min-h-screen bg-linear-to-tr from-gray-900 via-gray-950 to-black flex items-center justify-center p-6">
       <div className="w-full max-w-lg">
-        <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#0f1724]/60 to-[#03040a]/60 border border-gray-800/60 shadow-xl p-8 backdrop-blur-md">
+        <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-[#0f1724]/60 to-[#03040a]/60 border border-gray-800/60 shadow-xl p-8 backdrop-blur-md transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_0_100px_rgba(128,0,255,0.2)]">
           <div className="flex items-center gap-4 mb-6">
             <div>
               <h1 className="text-2xl font-semibold text-white">
