@@ -30,7 +30,7 @@ const Header = ({ data, changeUser }) => {
 
         <button
           onClick={LoggedOutUser}
-          className="px-6 py-2.5 bg-white/5 hover:bg-red-500/10 border border-white/10 hover:border-red-500/50 text-white hover:text-red-500 font-medium rounded-xl transition-all duration-300 active:scale-95 cursor-pointer shadow-sm"
+          className="px-6 py-2.5 bg-white/5 hover:bg-red-500/10 border border-white/10 hover:border-red-500/50 text-white hover:text-red-500 font-medium rounded-xl transition-all duration-300 active:scale-95 cursor-pointer shadow-sm whitespace-nowrap"
         >
           Log Out
         </button>
